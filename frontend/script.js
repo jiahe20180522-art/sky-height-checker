@@ -1,4 +1,4 @@
-const RENDER_URL = "https://sky-height-checker.onrender.com/upload"; // 你的 Render 網址 + /upload
+const RENDER_URL = "https://sky-height-checker-2.onrender.com/upload"; // 你的 Render 網址 + /upload
 
 
 const uploadBtn = document.getElementById("uploadBtn");
