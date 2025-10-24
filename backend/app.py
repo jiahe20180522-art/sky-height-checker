@@ -35,7 +35,7 @@ def allowed_file(filename):
 
 def upload_to_cloudinary(file_path):
     result = cloudinary.uploader.upload(file_path)
-    return result["secure_url"]  # 圖片網址
+    return result["secure_url"]
 
 def compare_image(upload_path):
     uploaded = cv2.imread(upload_path, cv2.IMREAD_GRAYSCALE)
@@ -72,10 +72,16 @@ def upload():
         file.save(save_path)
 
         # 上傳到 Cloudinary
-        cloud_url = upload_to_cloudinary(save_path)
+        try:
+            cloud_url = upload_to_cloudinary(save_path)
+        except Exception as e:
+            cloud_url = None
 
         # 圖片比對
-        height_id = compare_image(save_path)
+        try:
+            height_id = compare_image(save_path)
+        except Exception:
+            height_id = None
 
         return jsonify({
             "ok": True,
@@ -87,9 +93,16 @@ def upload():
 
     return jsonify({"ok": False, "error": "檔案類型不允許"}), 400
 
-import os
+# --------------------
+# 測試路由
+# --------------------
+@app.route("/")
+def home():
+    return "後端正常運作！"
 
+# --------------------
+# 啟動
+# --------------------
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port, debug=True)
-
