@@ -1,7 +1,5 @@
-flask
+Flask
 flask-cors
-opencv-python
-pillow
-numpy
+opencv-python-headless
 scikit-image
 cloudinary
