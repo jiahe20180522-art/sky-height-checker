@@ -88,4 +88,6 @@ def upload():
     return jsonify({"ok": False, "error": "檔案類型不允許"}), 400
 
 if __name__ == "__main__":
-    app.run(debug=True, port=5000)
+    import os
+    port = int(os.environ.get("PORT", 5000))  # 從環境變數讀取 PORT，Render 會自動給
+    app.run(host="0.0.0.0", port=port, debug=True)
